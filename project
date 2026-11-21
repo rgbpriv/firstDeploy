@@ -1,0 +1,2148 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AquaPure — Pure, Mineral-Rich Water From Every Tap</title>
+
+  <!-- Inter Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+          },
+          colors: {
+            navy: {
+              800: '#0f2942',
+              900: '#091a2c',
+              950: '#05101c',
+            },
+            aqua: {
+              50: '#ecfeff',
+              100: '#cffafe',
+              200: '#a5f3fc',
+              400: '#22d3ee',
+              500: '#06b6d4',
+              600: '#0891b2',
+              700: '#0e7490',
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Embedded Custom Micro-Interactions & Animations -->
+  <style>
+    /* Subtle float animation for hero graphic */
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+    }
+    .animate-float {
+      animation: floatSlow 5s ease-in-out infinite;
+    }
+
+    /* Animated water flow dashes in SVG pipes */
+    @keyframes dashFlow {
+      to { stroke-dashoffset: -24; }
+    }
+    .water-flow-line {
+      stroke-dasharray: 6 6;
+      animation: dashFlow 1.2s linear infinite;
+    }
+
+    /* Badge pop animation when cart updates */
+    @keyframes popScale {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.35); }
+      100% { transform: scale(1); }
+    }
+    .animate-pop {
+      animation: popScale 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    /* Smooth accordion content transition */
+    .accordion-content {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.28s ease-out;
+    }
+    .accordion-item[data-open="true"] .accordion-content {
+      grid-template-rows: 1fr;
+    }
+    .accordion-inner {
+      overflow: hidden;
+    }
+
+    /* Toast slide-in animation */
+    @keyframes toastIn {
+      from { opacity: 0; transform: translateY(16px) scale(0.96); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .toast-enter {
+      animation: toastIn 0.25s ease-out forwards;
+    }
+
+    /* Custom subtle scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-aqua-200 selection:text-navy-900">
+
+  <!-- ===================================================================== -->
+  <!-- 1. STICKY HEADER & NAVIGATION                                         -->
+  <!-- ===================================================================== -->
+  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-200/80 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 lg:h-20 gap-4">
+
+        <!-- Brand Logo -->
+        <a href="#" class="flex items-center gap-2.5 shrink-0 group focus:outline-none">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-aqua-500 to-navy-800 flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
+            <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M12 2.5C12 2.5 5.5 9.8 5.5 14.5C5.5 18.09 8.41 21 12 21C15.59 21 18.5 18.09 18.5 14.5C18.5 9.8 12 2.5 12 2.5Z" fill="currentColor" fill-opacity="0.25" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+              <path d="M9.5 15.2C9.5 16.6 10.6 17.7 12 17.7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            <span class="text-xl font-extrabold tracking-tight text-navy-900">Aqua<span class="text-aqua-600">Pure</span></span>
+            <span class="hidden sm:block text-[10px] font-semibold uppercase tracking-widest text-slate-400 -mt-1">Filtration Lab</span>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <nav class="hidden lg:flex items-center gap-7 text-sm font-medium text-slate-600" aria-label="Main Navigation">
+          <a href="#shop" class="hover:text-aqua-600 transition-colors">Shop</a>
+          <a href="#filtration-tech" class="hover:text-aqua-600 transition-colors">Filtration Tech</a>
+          <a href="#compare" class="hover:text-aqua-600 transition-colors">Compare</a>
+          <a href="#reviews" class="hover:text-aqua-600 transition-colors">Reviews</a>
+          <a href="#faq" class="hover:text-aqua-600 transition-colors">FAQ</a>
+        </nav>
+
+        <!-- Live Search & Cart Controls -->
+        <div class="flex items-center gap-2 sm:gap-3 flex-1 lg:flex-initial justify-end max-w-md">
+          <!-- Live Search Input -->
+          <div class="relative flex-1 sm:w-64 lg:w-60">
+            <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+            </span>
+            <input
+              id="header-search"
+              type="search"
+              placeholder="Search filters, RO, pitcher..."
+              aria-label="Search water filters"
+              class="w-full pl-9 pr-3 py-2 text-sm bg-slate-100 border border-transparent rounded-xl focus:bg-white focus:border-aqua-500 focus:ring-2 focus:ring-aqua-500/20 outline-none transition-all placeholder:text-slate-400"
+            />
+          </div>
+
+          <!-- Cart Trigger Button -->
+          <button
+            id="open-cart-btn"
+            type="button"
+            aria-label="Open Shopping Cart"
+            class="relative inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-navy-900 text-white hover:bg-navy-800 active:scale-95 transition-all shadow-sm shrink-0"
+          >
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="9" cy="21" r="1"></circle>
+              <circle cx="20" cy="21" r="1"></circle>
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+            </svg>
+            <span class="hidden sm:inline text-sm font-semibold">Cart</span>
+            <span
+              id="cart-count-badge"
+              class="inline-flex items-center justify-center min-w-[1.25rem] h-5 px-1.5 text-xs font-bold rounded-full bg-aqua-500 text-navy-950"
+            >0</span>
+          </button>
+
+          <!-- Mobile Menu Button -->
+          <button
+            id="mobile-menu-btn"
+            type="button"
+            aria-label="Toggle Menu"
+            class="lg:hidden p-2 rounded-xl text-slate-600 hover:bg-slate-100 transition-colors"
+          >
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Collapsible Nav -->
+      <div id="mobile-menu" class="hidden lg:hidden pb-4 pt-2 border-t border-slate-100">
+        <nav class="flex flex-col space-y-1 text-sm font-medium text-slate-700">
+          <a href="#shop" class="mobile-nav-link px-3 py-2.5 rounded-xl hover:bg-aqua-50 hover:text-aqua-700">Shop Systems</a>
+          <a href="#filtration-tech" class="mobile-nav-link px-3 py-2.5 rounded-xl hover:bg-aqua-50 hover:text-aqua-700">Filtration Tech</a>
+          <a href="#compare" class="mobile-nav-link px-3 py-2.5 rounded-xl hover:bg-aqua-50 hover:text-aqua-700">Compare Models</a>
+          <a href="#reviews" class="mobile-nav-link px-3 py-2.5 rounded-xl hover:bg-aqua-50 hover:text-aqua-700">Customer Reviews</a>
+          <a href="#faq" class="mobile-nav-link px-3 py-2.5 rounded-xl hover:bg-aqua-50 hover:text-aqua-700">FAQ</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- =================================================================== -->
+    <!-- 2. HERO SECTION & TRUST BAR                                         -->
+    <!-- =================================================================== -->
+    <section class="relative overflow-hidden bg-gradient-to-b from-navy-950 via-navy-900 to-navy-800 text-white">
+      <!-- Subtle decorative radial glow -->
+      <div class="absolute inset-0 pointer-events-none overflow-hidden">
+        <div class="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-aqua-500/20 blur-3xl"></div>
+        <div class="absolute bottom-0 left-1/4 w-80 h-80 rounded-full bg-sky-400/10 blur-3xl"></div>
+      </div>
+
+      <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-16 lg:pt-20 lg:pb-24">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+
+          <!-- Hero Text Column -->
+          <div class="lg:col-span-6 space-y-6 text-center lg:text-left">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/15 text-aqua-200 text-xs font-semibold tracking-wide">
+              <span class="w-2 h-2 rounded-full bg-aqua-400 animate-pulse"></span>
+              NSF/ANSI 58 &amp; 42 Certified Filtration Engineering
+            </div>
+
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1]">
+              Pure, Mineral-Rich Water <span class="text-transparent bg-clip-text bg-gradient-to-r from-aqua-400 to-sky-300">From Every Tap</span>
+            </h1>
+
+            <p class="text-base sm:text-lg text-slate-300 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+              Eliminate 99.9% of PFAS, lead, chlorine, and microplastics while restoring balanced alkaline minerals. Lab-tested home filtration systems engineered for zero clutter and effortless installation.
+            </p>
+
+            <!-- Primary & Secondary CTAs -->
+            <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3.5 pt-2">
+              <a
+                href="#shop"
+                class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-aqua-500 hover:bg-aqua-400 text-navy-950 font-bold text-sm sm:text-base shadow-lg shadow-aqua-500/25 transition-all active:scale-95"
+              >
+                Shop Systems
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </a>
+              <a
+                href="#filtration-tech"
+                class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-white/10 hover:bg-white/15 border border-white/20 text-white font-semibold text-sm sm:text-base transition-all"
+              >
+                Explore Filtration Tech
+              </a>
+            </div>
+
+            <!-- Quick Social Proof -->
+            <div class="pt-3 flex items-center justify-center lg:justify-start gap-4 text-xs sm:text-sm text-slate-300">
+              <div class="flex items-center text-amber-400">
+                <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              </div>
+              <span><strong class="text-white">4.9/5</strong> from 2,400+ verified households</span>
+            </div>
+          </div>
+
+          <!-- Hero Custom Inline SVG Illustration -->
+          <div class="lg:col-span-6 flex justify-center">
+            <div class="relative w-full max-w-lg animate-float">
+              <svg viewBox="0 0 520 400" class="w-full h-auto drop-shadow-2xl" role="img" aria-label="AquaPure Pro 800G Tankless Reverse Osmosis System illustration">
+                <defs>
+                  <linearGradient id="heroBodyGrad" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#f8fafc" />
+                    <stop offset="100%" stop-color="#cbd5e1" />
+                  </linearGradient>
+                  <linearGradient id="heroAccentGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#22d3ee" />
+                    <stop offset="100%" stop-color="#0284c7" />
+                  </linearGradient>
+                  <linearGradient id="heroScreenGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#0f172a" />
+                    <stop offset="100%" stop-color="#1e293b" />
+                  </linearGradient>
+                </defs>
+
+                <!-- Background Halo -->
+                <circle cx="260" cy="200" r="165" fill="#06b6d4" fill-opacity="0.12" />
+                <circle cx="260" cy="200" r="130" fill="none" stroke="#22d3ee" stroke-opacity="0.25" stroke-width="1.5" stroke-dasharray="6 6" />
+
+                <!-- Animated Water Flow Lines -->
+                <path d="M55 260 H145" stroke="#38bdf8" stroke-width="4" stroke-linecap="round" class="water-flow-line" />
+                <path d="M355 150 H425 Q445 150 445 170 V215" fill="none" stroke="#22d3ee" stroke-width="4" stroke-linecap="round" class="water-flow-line" />
+
+                <!-- Main Tankless RO Chassis -->
+                <rect x="145" y="65" width="210" height="270" rx="28" fill="url(#heroBodyGrad)" stroke="#ffffff" stroke-width="2" />
+                <!-- Top Metallic Cap -->
+                <path d="M145 93 C145 77 157 65 173 65 H327 C343 65 355 77 355 93 V110 H145 V93 Z" fill="#0f2942" />
+                <!-- Glowing Aqua Strip -->
+                <rect x="145" y="108" width="210" height="6" fill="url(#heroAccentGrad)" />
+
+                <!-- Front Smart OLED Display -->
+                <rect x="178" y="135" width="144" height="92" rx="16" fill="url(#heroScreenGrad)" stroke="#334155" stroke-width="2" />
+                <text x="250" y="160" text-anchor="middle" fill="#94a3b8" font-size="10" font-weight="600" letter-spacing="1.5">PURE TDS LEVEL</text>
+                <text x="250" y="196" text-anchor="middle" fill="#22d3ee" font-size="34" font-weight="800">008</text>
+                <text x="250" y="214" text-anchor="middle" fill="#34d399" font-size="10" font-weight="600">pH 7.8 • MINERALIZED</text>
+
+                <!-- 3 Internal Filter Cartridges Indicator -->
+                <rect x="178" y="248" width="40" height="62" rx="10" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5" />
+                <rect x="184" y="256" width="28" height="8" rx="4" fill="#06b6d4" />
+                <text x="198" y="295" text-anchor="middle" fill="#334155" font-size="9" font-weight="700">PP+C</text>
+
+                <rect x="230" y="248" width="40" height="62" rx="10" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5" />
+                <rect x="236" y="256" width="28" height="8" rx="4" fill="#0284c7" />
+                <text x="250" y="295" text-anchor="middle" fill="#334155" font-size="9" font-weight="700">RO</text>
+
+                <rect x="282" y="248" width="40" height="62" rx="10" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5" />
+                <rect x="288" y="256" width="28" height="8" rx="4" fill="#10b981" />
+                <text x="302" y="295" text-anchor="middle" fill="#334155" font-size="9" font-weight="700">ALK</text>
+
+                <!-- Glass of Pure Water on Right -->
+                <path d="M412 232 L420 315 Q421 325 432 325 H458 Q469 325 470 315 L478 232 Z" fill="#e0f2fe" fill-opacity="0.2" stroke="#bae6fd" stroke-width="2.5" />
+                <path d="M416 260 L421 314 Q422 321 432 321 H458 Q468 321 469 314 L474 260 Q445 268 416 260 Z" fill="url(#heroAccentGrad)" fill-opacity="0.75" />
+                <!-- Water stream into glass -->
+                <line x1="445" y1="215" x2="445" y2="262" stroke="#22d3ee" stroke-width="4" stroke-linecap="round" class="water-flow-line" />
+
+                <!-- Floating Telemetry Badges -->
+                <g transform="translate(22, 95)">
+                  <rect width="112" height="54" rx="14" fill="#0f2942" fill-opacity="0.92" stroke="#38bdf8" stroke-opacity="0.4" stroke-width="1.5" />
+                  <text x="14" y="23" fill="#94a3b8" font-size="9" font-weight="600">CONTAMINANTS</text>
+                  <text x="14" y="42" fill="#ffffff" font-size="15" font-weight="800">99.9% Gone</text>
+                </g>
+
+                <g transform="translate(366, 52)">
+                  <rect width="128" height="54" rx="14" fill="#0f2942" fill-opacity="0.92" stroke="#34d399" stroke-opacity="0.45" stroke-width="1.5" />
+                  <text x="14" y="23" fill="#94a3b8" font-size="9" font-weight="600">FLOW RATE</text>
+                  <text x="14" y="42" fill="#34d399" font-size="15" font-weight="800">800 GPD Fast</text>
+                </g>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Trust Bar -->
+      <div class="border-t border-white/10 bg-navy-950/60 backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-aqua-500/15 text-aqua-400 flex items-center justify-center shrink-0">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+              </div>
+              <div>
+                <p class="text-sm font-bold text-white">NSF/ANSI Certified</p>
+                <p class="text-xs text-slate-400">Standards 42, 53 &amp; 58</p>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-aqua-500/15 text-aqua-400 flex items-center justify-center shrink-0">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+              </div>
+              <div>
+                <p class="text-sm font-bold text-white">99.9% Removal</p>
+                <p class="text-xs text-slate-400">PFAS, Lead, Chlorine, TDS</p>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-aqua-500/15 text-aqua-400 flex items-center justify-center shrink-0">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+              </div>
+              <div>
+                <p class="text-sm font-bold text-white">Free Shipping</p>
+                <p class="text-xs text-slate-400">On all orders over $150</p>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-aqua-500/15 text-aqua-400 flex items-center justify-center shrink-0">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+              </div>
+              <div>
+                <p class="text-sm font-bold text-white">3-Year Warranty</p>
+                <p class="text-xs text-slate-400">Plus 60-day home trial</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- 3. INTERACTIVE PRODUCT CATALOG                                      -->
+    <!-- =================================================================== -->
+    <section id="shop" class="py-16 lg:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Section Heading -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-widest text-aqua-600">Engineered Purity</span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-navy-900 mt-1">Shop Filtration Systems</h2>
+          <p class="text-slate-500 mt-2 max-w-2xl">From compact apartment pitchers to whole-home defense—find the exact filtration architecture for your water quality.</p>
+        </div>
+
+        <!-- Sort Dropdown -->
+        <div class="flex items-center gap-2.5 shrink-0">
+          <label for="sort-select" class="text-sm font-medium text-slate-600">Sort by:</label>
+          <select
+            id="sort-select"
+            class="px-3.5 py-2.5 text-sm font-medium bg-white border border-slate-200 rounded-xl shadow-sm focus:border-aqua-500 focus:ring-2 focus:ring-aqua-500/20 outline-none cursor-pointer"
+          >
+            <option value="featured">Featured</option>
+            <option value="price-asc">Price: Low to High</option>
+            <option value="price-desc">Price: High to Low</option>
+            <option value="rating">Top Rated</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Category Filter Pills & Live Count -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+        <div id="category-pills" class="flex flex-wrap items-center gap-2" role="tablist" aria-label="Product Categories">
+          <!-- Rendered dynamically via JS -->
+        </div>
+        <p id="results-count" class="text-sm text-slate-500 font-medium shrink-0">Showing 8 products</p>
+      </div>
+
+      <!-- Product Grid -->
+      <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Rendered dynamically via JS -->
+      </div>
+
+      <!-- Empty Search State -->
+      <div id="empty-catalog-state" class="hidden text-center py-16 px-4 bg-white rounded-2xl border border-slate-200">
+        <div class="w-14 h-14 mx-auto rounded-2xl bg-slate-100 text-slate-400 flex items-center justify-center mb-4">
+          <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </div>
+        <h3 class="text-lg font-bold text-navy-900">No matching filtration systems</h3>
+        <p class="text-sm text-slate-500 mt-1 mb-5">Try adjusting your search keywords or clearing your category filter.</p>
+        <button id="reset-filters-btn" type="button" class="px-5 py-2.5 rounded-xl bg-navy-900 text-white text-sm font-semibold hover:bg-navy-800 transition-colors">
+          Reset All Filters
+        </button>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- 5. INTERACTIVE 5-STAGE FILTRATION EXPLORER                          -->
+    <!-- =================================================================== -->
+    <section id="filtration-tech" class="py-16 lg:py-24 bg-navy-950 text-white relative overflow-hidden">
+      <div class="absolute inset-0 pointer-events-none">
+        <div class="absolute top-1/2 left-0 w-72 h-72 bg-aqua-500/10 rounded-full blur-3xl -translate-y-1/2"></div>
+        <div class="absolute bottom-0 right-0 w-96 h-96 bg-sky-500/10 rounded-full blur-3xl"></div>
+      </div>
+
+      <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-12">
+          <span class="text-xs font-bold uppercase tracking-widest text-aqua-400">Inside The Cartridge</span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold mt-2">Interactive 5-Stage Filtration Explorer</h2>
+          <p class="text-slate-300 mt-3">Click each stage below to trace how ordinary tap water is transformed into crisp, alkaline, lab-grade drinking water.</p>
+        </div>
+
+        <!-- Stage Selector Pipeline -->
+        <div id="stage-buttons" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mb-8">
+          <!-- Rendered dynamically via JS -->
+        </div>
+
+        <!-- Dynamic Stage Detail Card -->
+        <div id="stage-detail-card" class="bg-navy-900/90 border border-white/10 rounded-3xl p-6 sm:p-8 lg:p-10 shadow-2xl">
+          <!-- Rendered dynamically via JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- 6. SIDE-BY-SIDE SYSTEM COMPARISON TABLE                             -->
+    <!-- =================================================================== -->
+    <section id="compare" class="py-16 lg:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <span class="text-xs font-bold uppercase tracking-widest text-aqua-600">Find Your Match</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-navy-900 mt-1">Side-by-Side System Comparison</h2>
+        <p class="text-slate-500 mt-2">Compare our three most popular filtration tiers across performance, setup, and long-term value.</p>
+      </div>
+
+      <div class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse min-w-[680px]">
+            <thead>
+              <tr class="border-b border-slate-200 bg-slate-50/80">
+                <th class="p-5 text-xs font-bold uppercase tracking-wider text-slate-400 w-1/4">Specification</th>
+                <th class="p-5 w-1/4">
+                  <span class="inline-block px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-100 text-emerald-700 mb-1.5">Eco Pick</span>
+                  <div class="text-base font-extrabold text-navy-900">PureGlass Pitcher</div>
+                  <div class="text-sm font-bold text-aqua-600 mt-0.5">$59</div>
+                </th>
+                <th class="p-5 w-1/4">
+                  <span class="inline-block px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-sky-100 text-sky-700 mb-1.5">No-Plumbing</span>
+                  <div class="text-base font-extrabold text-navy-900">ClearStream UV-RO</div>
+                  <div class="text-sm font-bold text-aqua-600 mt-0.5">$349</div>
+                </th>
+                <th class="p-5 w-1/4 bg-aqua-50/50 border-l border-aqua-100">
+                  <span class="inline-block px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-aqua-600 text-white mb-1.5">Most Popular</span>
+                  <div class="text-base font-extrabold text-navy-900">AquaPure Pro 800G RO</div>
+                  <div class="text-sm font-bold text-aqua-700 mt-0.5">$499</div>
+                </th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100 text-sm">
+              <tr>
+                <td class="p-5 font-semibold text-slate-700">Filtration Stages</td>
+                <td class="p-5 text-slate-600">5-Stage Mineral Gravity</td>
+                <td class="p-5 text-slate-600">4-Stage RO + UV-C LED</td>
+                <td class="p-5 font-semibold text-navy-900 bg-aqua-50/30 border-l border-aqua-100">5-Stage Tankless RO + Alkaline</td>
+              </tr>
+              <tr>
+                <td class="p-5 font-semibold text-slate-700">Installation</td>
+                <td class="p-5 text-slate-600">None (Fill &amp; Pour)</td>
+                <td class="p-5 text-slate-600">Plug &amp; Play Countertop</td>
+                <td class="p-5 text-navy-900 bg-aqua-50/30 border-l border-aqua-100">30-Min DIY Under-Sink</td>
+              </tr>
+              <tr>
+                <td class="p-5 font-semibold text-slate-700">Contaminant Removal</td>
+                <td class="p-5 text-slate-600">Chlorine, Lead, Microplastics (96%)</td>
+                <td class="p-5 text-slate-600">PFAS, Heavy Metals, Bacteria (99.9%)</td>
+                <td class="p-5 font-semibold text-navy-900 bg-aqua-50/30 border-l border-aqua-100">1,000+ Contaminants &amp; TDS (99.99%)</td>
+              </tr>
+              <tr>
+                <td class="p-5 font-semibold text-slate-700">Flow Rate / Capacity</td>
+                <td class="p-5 text-slate-600">10-Cup Carafe</td>
+                <td class="p-5 text-slate-600">150 GPD Instant Dispense</td>
+                <td class="p-5 font-semibold text-navy-900 bg-aqua-50/30 border-l border-aqua-100">800 GPD (Cup in 6 Seconds)</td>
+              </tr>
+              <tr>
+                <td class="p-5 font-semibold text-slate-700">Filter Lifespan</td>
+                <td class="p-5 text-slate-600">2 Months / 60 Gallons</td>
+                <td class="p-5 text-slate-600">12 Months</td>
+                <td class="p-5 text-navy-900 bg-aqua-50/30 border-l border-aqua-100">12–24 Months (Twist-Lock)</td>
+              </tr>
+              <tr>
+                <td class="p-5 font-semibold text-slate-700">Best For</td>
+                <td class="p-5 text-slate-600">Dorm rooms, singles, fridge</td>
+                <td class="p-5 text-slate-600">Renters, apartments, offices</td>
+                <td class="p-5 font-semibold text-navy-900 bg-aqua-50/30 border-l border-aqua-100">Families &amp; culinary enthusiasts</td>
+              </tr>
+              <tr class="bg-slate-50/50">
+                <td class="p-5"></td>
+                <td class="p-5">
+                  <button type="button" data-compare-add="4" class="compare-add-btn w-full py-2.5 px-4 rounded-xl border border-slate-300 bg-white hover:bg-slate-100 text-navy-900 font-semibold text-xs sm:text-sm transition-colors">
+                    Add Pitcher — $59
+                  </button>
+                </td>
+                <td class="p-5">
+                  <button type="button" data-compare-add="2" class="compare-add-btn w-full py-2.5 px-4 rounded-xl border border-navy-900 bg-navy-900 hover:bg-navy-800 text-white font-semibold text-xs sm:text-sm transition-colors">
+                    Add Countertop — $349
+                  </button>
+                </td>
+                <td class="p-5 bg-aqua-50/40 border-l border-aqua-100">
+                  <button type="button" data-compare-add="1" class="compare-add-btn w-full py-2.5 px-4 rounded-xl bg-aqua-600 hover:bg-aqua-500 text-white font-bold text-xs sm:text-sm shadow-md shadow-aqua-600/20 transition-colors">
+                    Add Pro 800G — $499
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- 7. CUSTOMER REVIEWS & INTERACTIVE FAQ ACCORDION                     -->
+    <!-- =================================================================== -->
+    <section id="reviews" class="py-16 lg:py-24 bg-white border-y border-slate-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-widest text-aqua-600">Verified Owners</span>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-navy-900 mt-1">Trusted in 45,000+ Kitchens</h2>
+          </div>
+          <div class="flex items-center gap-4 bg-slate-50 px-5 py-3.5 rounded-2xl border border-slate-200">
+            <div class="text-3xl font-extrabold text-navy-900">4.9</div>
+            <div>
+              <div class="flex text-amber-400 text-sm">★★★★★</div>
+              <p class="text-xs text-slate-500 font-medium">Based on 2,418 lab-verified reviews</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <!-- Review 1 -->
+          <article class="bg-slate-50 rounded-2xl p-6 border border-slate-200/80 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <div class="text-amber-400 text-sm tracking-tight">★★★★★</div>
+                <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-700">Verified Buyer</span>
+              </div>
+              <h3 class="font-bold text-navy-900 text-base mb-2">"Our TDS dropped from 310 ppm to 9 ppm immediately."</h3>
+              <p class="text-sm text-slate-600 leading-relaxed">
+                I installed the AquaPure Pro 800G under our kitchen sink in about 25 minutes. The water tastes noticeably softer and sweeter than bottled spring water, and the smart faucet light tells us everything at a glance.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-slate-200 flex items-center justify-between text-xs">
+              <span class="font-bold text-navy-900">Daniela R. • Austin, TX</span>
+              <span class="text-aqua-700 font-medium">Pro 800G RO</span>
+            </div>
+          </article>
+
+          <!-- Review 2 -->
+          <article class="bg-slate-50 rounded-2xl p-6 border border-slate-200/80 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <div class="text-amber-400 text-sm tracking-tight">★★★★★</div>
+                <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-700">Verified Buyer</span>
+              </div>
+              <h3 class="font-bold text-navy-900 text-base mb-2">"Zero plumbing required—perfect for our apartment."</h3>
+              <p class="text-sm text-slate-600 leading-relaxed">
+                As renters we couldn't drill into granite countertops. The ClearStream Countertop UV-RO plugged right in and completely eliminated the swimming-pool chlorine smell from our city tap water.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-slate-200 flex items-center justify-between text-xs">
+              <span class="font-bold text-navy-900">Marcus T. • Seattle, WA</span>
+              <span class="text-aqua-700 font-medium">Countertop UV-RO</span>
+            </div>
+          </article>
+
+          <!-- Review 3 -->
+          <article class="bg-slate-50 rounded-2xl p-6 border border-slate-200/80 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <div class="text-amber-400 text-sm tracking-tight">★★★★★</div>
+                <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-700">Verified Buyer</span>
+              </div>
+              <h3 class="font-bold text-navy-900 text-base mb-2">"Best morning coffee and zero kettle scale."</h3>
+              <p class="text-sm text-slate-600 leading-relaxed">
+                We paired the Apex Whole House Shield with the under-sink RO. Our skin feels less dry after showers, our espresso machine stays spotless, and filter swaps take literally ten seconds with twist-lock.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-slate-200 flex items-center justify-between text-xs">
+              <span class="font-bold text-navy-900">Priya K. • Chicago, IL</span>
+              <span class="text-aqua-700 font-medium">Whole House Shield</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Accordion Section -->
+    <section id="faq" class="py-16 lg:py-24 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <span class="text-xs font-bold uppercase tracking-widest text-aqua-600">Support &amp; Specs</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-navy-900 mt-1">Frequently Asked Questions</h2>
+        <p class="text-slate-500 mt-2">Everything you need to know about installation, water chemistry, and filter maintenance.</p>
+      </div>
+
+      <div id="faq-accordion" class="space-y-3">
+        <!-- Rendered dynamically via JS -->
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================================================================== -->
+  <!-- 10. FOOTER WITH NEWSLETTER SIGNUP & VALIDATION                        -->
+  <!-- ===================================================================== -->
+  <footer class="bg-navy-950 text-slate-300 border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 lg:py-16">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 pb-12 border-b border-white/10">
+
+        <!-- Brand Summary -->
+        <div class="lg:col-span-4 space-y-4">
+          <div class="flex items-center gap-2.5">
+            <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-aqua-500 to-sky-600 flex items-center justify-center">
+              <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none">
+                <path d="M12 2.5C12 2.5 5.5 9.8 5.5 14.5C5.5 18.09 8.41 21 12 21C15.59 21 18.5 18.09 18.5 14.5C18.5 9.8 12 2.5 12 2.5Z" fill="currentColor" fill-opacity="0.25" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </div>
+            <span class="text-xl font-extrabold text-white">Aqua<span class="text-aqua-400">Pure</span></span>
+          </div>
+          <p class="text-sm text-slate-400 leading-relaxed">
+            Precision home water filtration engineered to remove modern contaminants while preserving natural mineral balance.
+          </p>
+          <p class="text-xs text-slate-500">Use promo code <span class="font-mono font-bold text-aqua-400">PURE10</span> at checkout for 10% off your first order.</p>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="lg:col-span-2 space-y-3">
+          <h3 class="text-xs font-bold uppercase tracking-wider text-white">Shop</h3>
+          <ul class="space-y-2 text-sm text-slate-400">
+            <li><a href="#shop" class="hover:text-aqua-400 transition-colors">Under-Sink RO</a></li>
+            <li><a href="#shop" class="hover:text-aqua-400 transition-colors">Countertop Systems</a></li>
+            <li><a href="#shop" class="hover:text-aqua-400 transition-colors">Whole House</a></li>
+            <li><a href="#shop" class="hover:text-aqua-400 transition-colors">Replacement Filters</a></li>
+          </ul>
+        </div>
+
+        <div class="lg:col-span-2 space-y-3">
+          <h3 class="text-xs font-bold uppercase tracking-wider text-white">Resources</h3>
+          <ul class="space-y-2 text-sm text-slate-400">
+            <li><a href="#filtration-tech" class="hover:text-aqua-400 transition-colors">5-Stage Tech</a></li>
+            <li><a href="#compare" class="hover:text-aqua-400 transition-colors">System Comparison</a></li>
+            <li><a href="#reviews" class="hover:text-aqua-400 transition-colors">Customer Reviews</a></li>
+            <li><a href="#faq" class="hover:text-aqua-400 transition-colors">Support &amp; FAQ</a></li>
+          </ul>
+        </div>
+
+        <!-- Newsletter Signup -->
+        <div class="lg:col-span-4 space-y-3">
+          <h3 class="text-xs font-bold uppercase tracking-wider text-white">Water Quality Dispatch</h3>
+          <p class="text-sm text-slate-400">Get seasonal filter reminders, lab test reports, and an instant 10% off welcome code.</p>
+          <form id="newsletter-form" novalidate class="space-y-2.5 pt-1">
+            <div class="flex flex-col sm:flex-row gap-2">
+              <input
+                id="newsletter-email"
+                type="email"
+                placeholder="you@example.com"
+                aria-label="Email address for newsletter"
+                class="flex-1 px-4 py-2.5 rounded-xl bg-white/10 border border-white/15 text-sm text-white placeholder:text-slate-400 focus:border-aqua-400 focus:ring-2 focus:ring-aqua-400/25 outline-none"
+              />
+              <button
+                type="submit"
+                class="px-5 py-2.5 rounded-xl bg-aqua-500 hover:bg-aqua-400 text-navy-950 font-bold text-sm transition-colors shrink-0"
+              >
+                Subscribe
+              </button>
+            </div>
+            <p id="newsletter-feedback" class="text-xs min-h-[1rem]"></p>
+          </form>
+        </div>
+      </div>
+
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+        <p>&copy; 2026 AquaPure Filtration Lab, Inc. All rights reserved.</p>
+        <div class="flex items-center gap-6">
+          <span>NSF/ANSI Certified</span>
+          <span>BPA-Free Materials</span>
+          <span>3-Year Warranty</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===================================================================== -->
+  <!-- 4. PRODUCT QUICK-VIEW MODAL                                           -->
+  <!-- ===================================================================== -->
+  <div
+    id="quick-view-modal"
+    class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-navy-950/70 backdrop-blur-sm"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="qv-title"
+  >
+    <div class="relative w-full max-w-3xl bg-white rounded-3xl shadow-2xl overflow-hidden max-h-[92vh] flex flex-col">
+      <!-- Close Button -->
+      <button
+        id="close-qv-btn"
+        type="button"
+        aria-label="Close Quick View"
+        class="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center transition-colors"
+      >
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+
+      <div id="qv-body" class="overflow-y-auto grid grid-cols-1 md:grid-cols-12">
+        <!-- Populated dynamically via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- 8. SLIDE-OUT SHOPPING CART DRAWER                                     -->
+  <!-- ===================================================================== -->
+  <div id="cart-overlay" class="fixed inset-0 z-50 hidden">
+    <!-- Backdrop -->
+    <div id="cart-backdrop" class="absolute inset-0 bg-navy-950/60 backdrop-blur-sm transition-opacity opacity-0"></div>
+
+    <!-- Slide Panel -->
+    <aside
+      id="cart-drawer"
+      class="absolute top-0 right-0 h-full w-full max-w-md bg-white shadow-2xl flex flex-col transform translate-x-full transition-transform duration-300 ease-out"
+      aria-label="Shopping Cart"
+    >
+      <!-- Drawer Header -->
+      <div class="px-6 py-4 border-b border-slate-200 flex items-center justify-between">
+        <div>
+          <h2 class="text-lg font-extrabold text-navy-900">Your Cart</h2>
+          <p id="cart-drawer-subtitle" class="text-xs text-slate-500">0 items selected</p>
+        </div>
+        <button
+          id="close-cart-btn"
+          type="button"
+          aria-label="Close Cart"
+          class="w-9 h-9 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center transition-colors"
+        >
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <!-- Free Shipping Progress Bar -->
+      <div class="px-6 py-3 bg-aqua-50/70 border-b border-aqua-100">
+        <p id="shipping-progress-text" class="text-xs font-semibold text-navy-900 mb-1.5">
+          Add $150.00 more for FREE shipping
+        </p>
+        <div class="w-full h-2 bg-slate-200 rounded-full overflow-hidden">
+          <div id="shipping-progress-bar" class="h-full bg-gradient-to-r from-aqua-500 to-emerald-500 rounded-full transition-all duration-300" style="width: 0%;"></div>
+        </div>
+      </div>
+
+      <!-- Cart Items List -->
+      <div id="cart-items-container" class="flex-1 overflow-y-auto px-6 py-4 space-y-4">
+        <!-- Rendered dynamically via JS -->
+      </div>
+
+      <!-- Cart Footer: Promo Code + Totals + Checkout -->
+      <div id="cart-footer" class="border-t border-slate-200 p-6 bg-slate-50 space-y-4">
+        <!-- Promo Code Form -->
+        <div>
+          <form id="promo-form" class="flex gap-2">
+            <input
+              id="promo-input"
+              type="text"
+              placeholder="Promo code (try PURE10)"
+              aria-label="Promo code"
+              class="flex-1 px-3.5 py-2 text-sm bg-white border border-slate-200 rounded-xl focus:border-aqua-500 focus:ring-2 focus:ring-aqua-500/20 outline-none uppercase"
+            />
+            <button
+              type="submit"
+              class="px-4 py-2 rounded-xl bg-navy-900 hover:bg-navy-800 text-white text-xs font-bold transition-colors"
+            >
+              Apply
+            </button>
+          </form>
+          <div id="promo-status" class="mt-1.5 text-xs flex items-center justify-between"></div>
+        </div>
+
+        <!-- Price Breakdown -->
+        <div class="space-y-1.5 text-sm">
+          <div class="flex justify-between text-slate-600">
+            <span>Subtotal</span>
+            <span id="cart-subtotal" class="font-semibold text-navy-900">$0.00</span>
+          </div>
+          <div id="cart-discount-row" class="hidden justify-between text-emerald-600">
+            <span>Discount (<span id="cart-promo-label">PURE10</span>)</span>
+            <span id="cart-discount" class="font-semibold">-$0.00</span>
+          </div>
+          <div class="flex justify-between text-slate-600">
+            <span>Shipping</span>
+            <span id="cart-shipping" class="font-semibold text-navy-900">$0.00</span>
+          </div>
+          <div class="flex justify-between text-base font-extrabold text-navy-900 pt-2 border-t border-slate-200">
+            <span>Total</span>
+            <span id="cart-total">$0.00</span>
+          </div>
+        </div>
+
+        <!-- Checkout CTA -->
+        <button
+          id="open-checkout-btn"
+          type="button"
+          class="w-full py-3.5 rounded-xl bg-aqua-600 hover:bg-aqua-500 disabled:opacity-40 disabled:cursor-not-allowed text-white font-bold text-sm shadow-lg shadow-aqua-600/20 transition-all active:scale-[0.99]"
+        >
+          Proceed to Checkout
+        </button>
+      </div>
+    </aside>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- SIMULATED CHECKOUT & ORDER CONFIRMATION MODAL                         -->
+  <!-- ===================================================================== -->
+  <div
+    id="checkout-modal"
+    class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-navy-950/75 backdrop-blur-sm"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="checkout-heading"
+  >
+    <div class="relative w-full max-w-lg bg-white rounded-3xl shadow-2xl overflow-hidden max-h-[92vh] overflow-y-auto">
+      <button
+        id="close-checkout-btn"
+        type="button"
+        aria-label="Close Checkout"
+        class="absolute top-4 right-4 w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center transition-colors"
+      >
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+
+      <!-- Checkout Form View -->
+      <div id="checkout-form-view" class="p-6 sm:p-8">
+        <span class="text-xs font-bold uppercase tracking-widest text-aqua-600">Express Checkout</span>
+        <h2 id="checkout-heading" class="text-2xl font-extrabold text-navy-900 mt-1">Complete Your Order</h2>
+        <p class="text-xs text-slate-500 mt-1 mb-6">Simulated secure checkout—no real payment is processed.</p>
+
+        <form id="checkout-form" class="space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+            <div>
+              <label for="co-name" class="block text-xs font-semibold text-slate-700 mb-1">Full Name</label>
+              <input id="co-name" type="text" required placeholder="Alex Morgan" class="w-full px-3.5 py-2.5 text-sm border border-slate-200 rounded-xl focus:border-aqua-500 focus:ring-2 focus:ring-aqua-500/20 outline-none" />
+            </div>
+            <div>
+              <label for="co-email" class="block text-xs font-semibold text-slate-700 mb-1">Email</label>
+              <input id="co-email" type="email" required placeholder="alex@example.com" class="w-full px-3.5 py-2.5 text-sm border border-slate-200 rounded-xl focus:border-aqua-500 focus:ring-2 focus:ring-aqua-500/20 outline-none" />
+            </div>
+          </div>
+
+          <div>
+            <label for="co-address" class="block text-xs font-semibold text-slate-700 mb-1">Shipping Address</label>
+            <input id="co-address" type="text" required placeholder="742 Evergreen Terrace, Austin, TX 78701" class="w-full px-3.5 py-2.5 text-sm border border-slate-200 rounded-xl focus:border-aqua-500 focus:ring-2 focus:ring-aqua-500/20 outline-none" />
+          </div>
+
+          <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
+            <div class="flex justify-between text-xs text-slate-600">
+              <span>Items in Order</span>
+              <span id="co-item-count" class="font-semibold text-navy-900">0</span>
+            </div>
+            <div class="flex justify-between text-sm font-extrabold text-navy-900">
+              <span>Order Total</span>
+              <span id="co-total">$0.00</span>
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            class="w-full py-3.5 rounded-xl bg-navy-900 hover:bg-navy-800 text-white font-bold text-sm shadow-lg transition-all active:scale-[0.99]"
+          >
+            Place Order Now
+          </button>
+        </form>
+      </div>
+
+      <!-- Order Confirmation View -->
+      <div id="checkout-confirm-view" class="hidden p-8 text-center">
+        <div class="w-16 h-16 mx-auto rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mb-4">
+          <svg class="w-9 h-9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <span class="text-xs font-bold uppercase tracking-widest text-emerald-600">Order Confirmed</span>
+        <h3 class="text-2xl font-extrabold text-navy-900 mt-1">Pure Water Is On The Way!</h3>
+        <p class="text-sm text-slate-600 mt-2">
+          Thank you, <strong id="confirm-customer-name" class="text-navy-900"></strong>. Your confirmation receipt has been prepared for <span id="confirm-customer-email" class="font-medium text-aqua-700"></span>.
+        </p>
+
+        <div class="mt-6 p-4 rounded-2xl bg-slate-50 border border-slate-200 text-sm space-y-1.5">
+          <div class="flex justify-between">
+            <span class="text-slate-500">Order Reference</span>
+            <span id="confirm-order-id" class="font-mono font-bold text-navy-900">#AQP-00000</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-slate-500">Total Paid</span>
+            <span id="confirm-order-total" class="font-bold text-emerald-600">$0.00</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-slate-500">Estimated Delivery</span>
+            <span class="font-semibold text-navy-900">2–4 Business Days</span>
+          </div>
+        </div>
+
+        <button
+          id="continue-shopping-btn"
+          type="button"
+          class="mt-6 w-full py-3 rounded-xl bg-aqua-600 hover:bg-aqua-500 text-white font-bold text-sm transition-colors"
+        >
+          Continue Shopping
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- 9. TOAST NOTIFICATION CONTAINER                                       -->
+  <!-- ===================================================================== -->
+  <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2.5 max-w-sm w-[calc(100%-2.5rem)] pointer-events-none" aria-live="polite"></div>
+
+  <!-- ===================================================================== -->
+  <!-- EMBEDDED APPLICATION JAVASCRIPT                                       -->
+  <!-- ===================================================================== -->
+  <script>
+    (function () {
+      'use strict';
+
+      /* -------------------------------------------------------------------
+         1. CUSTOM INLINE SVG PRODUCT ILLUSTRATIONS
+         Zero external image dependencies — crisp vector graphics per model.
+      ------------------------------------------------------------------- */
+      function getProductSVG(type) {
+        const svgs = {
+          'ro-tankless': `
+            <svg viewBox="0 0 240 180" class="w-full h-full" aria-hidden="true">
+              <defs>
+                <linearGradient id="gRo" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#f8fafc"/><stop offset="100%" stop-color="#cbd5e1"/>
+                </linearGradient>
+              </defs>
+              <circle cx="120" cy="92" r="68" fill="#cffafe" fill-opacity="0.5"/>
+              <rect x="64" y="24" width="112" height="134" rx="18" fill="url(#gRo)" stroke="#94a3b8" stroke-width="2"/>
+              <path d="M64 42C64 32 72 24 82 24H158C168 24 176 32 176 42V50H64V42Z" fill="#0f2942"/>
+              <rect x="64" y="48" width="112" height="4" fill="#06b6d4"/>
+              <rect x="84" y="64" width="72" height="38" rx="8" fill="#0f172a"/>
+              <text x="120" y="88" text-anchor="middle" fill="#22d3ee" font-size="16" font-weight="800">008</text>
+              <rect x="82" y="114" width="20" height="30" rx="5" fill="#06b6d4"/>
+              <rect x="110" y="114" width="20" height="30" rx="5" fill="#0284c7"/>
+              <rect x="138" y="114" width="20" height="30" rx="5" fill="#10b981"/>
+            </svg>`,
+          'countertop-uv': `
+            <svg viewBox="0 0 240 180" class="w-full h-full" aria-hidden="true">
+              <circle cx="120" cy="92" r="68" fill="#e0f2fe" fill-opacity="0.65"/>
+              <rect x="52" y="34" width="84" height="122" rx="16" fill="#0f2942"/>
+              <rect x="60" y="42" width="68" height="30" rx="8" fill="#1e293b"/>
+              <circle cx="94" cy="57" r="7" fill="#22d3ee"/>
+              <rect x="136" y="46" width="52" height="110" rx="12" fill="#bae6fd" fill-opacity="0.6" stroke="#38bdf8" stroke-width="2"/>
+              <path d="M138 92 H186 V146 C186 151 182 154 176 154 H148 C142 154 138 151 138 146 Z" fill="#06b6d4" fill-opacity="0.5"/>
+              <rect x="74" y="96" width="40" height="52" rx="8" fill="#f8fafc" fill-opacity="0.12" stroke="#38bdf8" stroke-dasharray="3 3"/>
+              <path d="M84 132 L87 146 H101 L104 132 Z" fill="#38bdf8"/>
+            </svg>`,
+          'whole-house': `
+            <svg viewBox="0 0 240 180" class="w-full h-full" aria-hidden="true">
+              <circle cx="120" cy="92" r="68" fill="#dbeafe" fill-opacity="0.6"/>
+              <rect x="44" y="38" width="152" height="14" rx="6" fill="#0f2942"/>
+              <rect x="56" y="52" width="34" height="102" rx="12" fill="#0284c7" stroke="#0f2942" stroke-width="2"/>
+              <rect x="103" y="52" width="34" height="102" rx="12" fill="#0891b2" stroke="#0f2942" stroke-width="2"/>
+              <rect x="150" y="52" width="34" height="102" rx="12" fill="#0f2942" stroke="#06b6d4" stroke-width="2"/>
+              <circle cx="73" cy="45" r="4" fill="#38bdf8"/>
+              <circle cx="120" cy="45" r="4" fill="#38bdf8"/>
+              <circle cx="167" cy="45" r="4" fill="#38bdf8"/>
+              <rect x="64" y="76" width="18" height="4" rx="2" fill="#ffffff" fill-opacity="0.7"/>
+              <rect x="111" y="76" width="18" height="4" rx="2" fill="#ffffff" fill-opacity="0.7"/>
+              <rect x="158" y="76" width="18" height="4" rx="2" fill="#22d3ee"/>
+            </svg>`,
+          'pitcher': `
+            <svg viewBox="0 0 240 180" class="w-full h-full" aria-hidden="true">
+              <circle cx="120" cy="92" r="68" fill="#d1fae5" fill-opacity="0.55"/>
+              <path d="M164 62 C184 62 186 122 162 128" fill="none" stroke="#0f2942" stroke-width="8" stroke-linecap="round"/>
+              <path d="M74 44 L84 150 C85 156 91 160 98 160 H144 C151 160 157 156 158 150 L166 44 Z" fill="#e0f2fe" fill-opacity="0.75" stroke="#0284c7" stroke-width="2.5"/>
+              <path d="M82 104 L85 148 C86 153 91 157 98 157 H144 C151 157 156 153 157 148 L160 104 Z" fill="#22d3ee" fill-opacity="0.6"/>
+              <rect x="106" y="66" width="28" height="48" rx="10" fill="#ffffff" stroke="#0f2942" stroke-width="2"/>
+              <rect x="70" y="34" width="100" height="14" rx="7" fill="#0f2942"/>
+              <circle cx="120" cy="41" r="3" fill="#34d399"/>
+            </svg>`,
+          'under-sink-ultra': `
+            <svg viewBox="0 0 240 180" class="w-full h-full" aria-hidden="true">
+              <circle cx="120" cy="92" r="68" fill="#cffafe" fill-opacity="0.5"/>
+              <rect x="70" y="34" width="100" height="16" rx="6" fill="#0f2942"/>
+              <rect x="78" y="50" width="24" height="104" rx="10" fill="#f8fafc" stroke="#0284c7" stroke-width="2"/>
+              <rect x="108" y="50" width="24" height="104" rx="10" fill="#f8fafc" stroke="#06b6d4" stroke-width="2"/>
+              <rect x="138" y="50" width="24" height="104" rx="10" fill="#f8fafc" stroke="#10b981" stroke-width="2"/>
+              <rect x="82" y="64" width="16" height="10" rx="3" fill="#0284c7"/>
+              <rect x="112" y="64" width="16" height="10" rx="3" fill="#06b6d4"/>
+              <rect x="142" y="64" width="16" height="10" rx="3" fill="#10b981"/>
+            </svg>`,
+          'hydrobar': `
+            <svg viewBox="0 0 240 180" class="w-full h-full" aria-hidden="true">
+              <circle cx="120" cy="92" r="68" fill="#e0f2fe" fill-opacity="0.6"/>
+              <rect x="64" y="28" width="112" height="128" rx="18" fill="#1e293b"/>
+              <rect x="76" y="40" width="88" height="24" rx="8" fill="#0f172a"/>
+              <circle cx="96" cy="52" r="5" fill="#ef4444"/>
+              <circle cx="120" cy="52" r="5" fill="#22d3ee"/>
+              <circle cx="144" cy="52" r="5" fill="#34d399"/>
+              <rect x="82" y="76" width="76" height="66" rx="10" fill="#334155"/>
+              <path d="M106 116 L110 138 H130 L134 116 Z" fill="#bae6fd"/>
+              <line x1="120" y1="84" x2="120" y2="114" stroke="#22d3ee" stroke-width="3" stroke-linecap="round"/>
+            </svg>`,
+          'descaler': `
+            <svg viewBox="0 0 240 180" class="w-full h-full" aria-hidden="true">
+              <circle cx="120" cy="92" r="68" fill="#e2e8f0" fill-opacity="0.7"/>
+              <rect x="84" y="34" width="72" height="124" rx="28" fill="#0f2942"/>
+              <rect x="96" y="22" width="48" height="18" rx="6" fill="#06b6d4"/>
+              <rect x="94" y="64" width="52" height="64" rx="12" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+              <text x="120" y="94" text-anchor="middle" fill="#22d3ee" font-size="11" font-weight="800">SCALE</text>
+              <text x="120" y="110" text-anchor="middle" fill="#34d399" font-size="10" font-weight="700">SHIELD</text>
+            </svg>`,
+          'filter-pack': `
+            <svg viewBox="0 0 240 180" class="w-full h-full" aria-hidden="true">
+              <circle cx="120" cy="92" r="68" fill="#cffafe" fill-opacity="0.55"/>
+              <rect x="52" y="54" width="38" height="100" rx="14" fill="#ffffff" stroke="#0284c7" stroke-width="2.5"/>
+              <rect x="101" y="38" width="38" height="116" rx="14" fill="#ffffff" stroke="#06b6d4" stroke-width="2.5"/>
+              <rect x="150" y="54" width="38" height="100" rx="14" fill="#ffffff" stroke="#10b981" stroke-width="2.5"/>
+              <rect x="61" y="46" width="20" height="10" rx="4" fill="#0284c7"/>
+              <rect x="110" y="30" width="20" height="10" rx="4" fill="#06b6d4"/>
+              <rect x="159" y="46" width="20" height="10" rx="4" fill="#10b981"/>
+              <text x="71" y="112" text-anchor="middle" fill="#0f2942" font-size="10" font-weight="800">PP</text>
+              <text x="120" y="106" text-anchor="middle" fill="#0f2942" font-size="10" font-weight="800">RO</text>
+              <text x="169" y="112" text-anchor="middle" fill="#0f2942" font-size="10" font-weight="800">ALK</text>
+            </svg>`
+        };
+        return svgs[type] || svgs['ro-tankless'];
+      }
+
+      /* -------------------------------------------------------------------
+         2. CATALOG DATA (8 REALISTIC WATER FILTER PRODUCTS)
+      ------------------------------------------------------------------- */
+      const PRODUCTS = [
+        {
+          id: 1,
+          name: 'AquaPure Pro 800G Tankless RO',
+          category: 'Under-Sink RO',
+          price: 499,
+          rating: 4.9,
+          reviews: 642,
+          badge: 'Best Seller',
+          badgeColor: 'bg-aqua-600 text-white',
+          stageTag: '5-Stage RO + Alkaline',
+          svgType: 'ro-tankless',
+          description: 'Flagship tankless reverse osmosis system with real-time OLED TDS monitoring, 2:1 pure-to-drain efficiency, and remineralizing alkaline finish.',
+          specs: {
+            flowRate: '800 GPD (6 sec/cup)',
+            filterLife: '12–24 Months',
+            contaminants: '99.99% PFAS, Lead, TDS, Fluoride, Chlorine',
+            dimensions: '15.2" × 5.8" × 15.8"'
+          }
+        },
+        {
+          id: 2,
+          name: 'ClearStream Countertop UV-RO',
+          category: 'Countertop',
+          price: 349,
+          rating: 4.8,
+          reviews: 418,
+          badge: 'New',
+          badgeColor: 'bg-navy-900 text-white',
+          stageTag: '4-Stage RO + UV-C',
+          svgType: 'countertop-uv',
+          description: 'Plug-and-play countertop purifier with detachable borosilicate carafe and built-in UV-C LED sterilization. Zero drilling or plumbing required.',
+          specs: {
+            flowRate: '150 GPD Instant',
+            filterLife: '12 Months',
+            contaminants: '99.9% Bacteria, Viruses, PFAS, Heavy Metals',
+            dimensions: '13.5" × 8.1" × 14.2"'
+          }
+        },
+        {
+          id: 3,
+          name: 'Apex Whole House 3-Stage Shield',
+          category: 'Whole House',
+          price: 899,
+          rating: 4.9,
+          reviews: 289,
+          badge: 'Best Seller',
+          badgeColor: 'bg-aqua-600 text-white',
+          stageTag: 'Whole-Home Carbon + Iron',
+          svgType: 'whole-house',
+          description: 'High-flow point-of-entry filtration protecting every shower, laundry line, and kitchen faucet from chlorine, sediment, rust, and VOCs.',
+          specs: {
+            flowRate: '15 GPM (No Pressure Drop)',
+            filterLife: '100,000 Gallons / 1 Year',
+            contaminants: '99% Chlorine, Rust, Pesticides, VOCs',
+            dimensions: '23.6" × 8.5" × 24.4"'
+          }
+        },
+        {
+          id: 4,
+          name: 'PureGlass Alkaline Pitcher (10-Cup)',
+          category: 'Pitchers',
+          price: 59,
+          rating: 4.7,
+          reviews: 512,
+          badge: 'Eco',
+          badgeColor: 'bg-emerald-600 text-white',
+          stageTag: '5-Stage Mineral Gravity',
+          svgType: 'pitcher',
+          description: 'BPA-free borosilicate glass pitcher featuring a smart lid timer and coconut-shell carbon + mineral stone cartridge for crisp, pH-balanced hydration.',
+          specs: {
+            flowRate: '10-Cup Capacity',
+            filterLife: '60 Gallons / 2 Months',
+            contaminants: '96% Chlorine, Lead, Copper, Microplastics',
+            dimensions: '10.2" × 5.4" × 10.6"'
+          }
+        },
+        {
+          id: 5,
+          name: 'AquaPure Compact Under-Sink Ultra',
+          category: 'Under-Sink RO',
+          price: 189,
+          rating: 4.6,
+          reviews: 194,
+          badge: 'Eco',
+          badgeColor: 'bg-emerald-600 text-white',
+          stageTag: '3-Stage Ultrafiltration',
+          svgType: 'under-sink-ultra',
+          description: 'Zero-wastewater 0.01-micron ultrafiltration system that retains natural minerals while stripping out chlorine, lead, and cysts in tight cabinets.',
+          specs: {
+            flowRate: '2.0 GPM Direct Tap',
+            filterLife: '12 Months / 8,000 Gal',
+            contaminants: '99.5% Lead, Chlorine, Cysts, Sediment',
+            dimensions: '11.4" × 4.2" × 13.0"'
+          }
+        },
+        {
+          id: 6,
+          name: 'HydroBar Instant Hot & Cold RO',
+          category: 'Countertop',
+          price: 429,
+          rating: 4.8,
+          reviews: 163,
+          badge: 'New',
+          badgeColor: 'bg-navy-900 text-white',
+          stageTag: '4-Stage RO + Thermal',
+          svgType: 'hydrobar',
+          description: 'All-in-one countertop hydration bar delivering chilled 45°F drinking water or 205°F tea & pour-over coffee water in 3 seconds flat.',
+          specs: {
+            flowRate: 'Instant 4-Temp Dispense',
+            filterLife: '12 Months',
+            contaminants: '99.9% TDS, PFAS, Lead, Chlorine',
+            dimensions: '14.8" × 7.9" × 15.1"'
+          }
+        },
+        {
+          id: 7,
+          name: 'Whole-Home Salt-Free Descaler Pro',
+          category: 'Whole House',
+          price: 649,
+          rating: 4.7,
+          reviews: 127,
+          badge: 'Eco',
+          badgeColor: 'bg-emerald-600 text-white',
+          stageTag: 'NAC Anti-Scale + Carbon',
+          svgType: 'descaler',
+          description: 'Zero-salt, zero-electricity template-assisted crystallization media prevents limescale buildup in water heaters and pipes without slippery water.',
+          specs: {
+            flowRate: '12 GPM Continuous',
+            filterLife: '5 Years Media Life',
+            contaminants: '99% Scale Prevention + Chloramines',
+            dimensions: '10.0" × 10.0" × 44.0"'
+          }
+        },
+        {
+          id: 8,
+          name: 'Annual 5-Stage Replacement Filter Pack',
+          category: 'Replacement Filters',
+          price: 89,
+          rating: 4.9,
+          reviews: 734,
+          badge: 'Best Seller',
+          badgeColor: 'bg-aqua-600 text-white',
+          stageTag: '12-Month Twist-Lock Kit',
+          svgType: 'filter-pack',
+          description: 'Complete annual maintenance bundle including PP Sediment, Catalytic Carbon Block, and Alkaline Mineralizer cartridges. Tool-free 10-second swap.',
+          specs: {
+            flowRate: 'Full OEM Spec',
+            filterLife: '12 Months Supply',
+            contaminants: 'Restores 99.99% Lab Performance',
+            dimensions: 'Fits Pro 800G & Series 5'
+          }
+        }
+      ];
+
+      const CATEGORIES = [
+        'All',
+        'Under-Sink RO',
+        'Countertop',
+        'Whole House',
+        'Pitchers',
+        'Replacement Filters'
+      ];
+
+      /* -------------------------------------------------------------------
+         3. 5-STAGE FILTRATION EXPLORER DATA
+      ------------------------------------------------------------------- */
+      const FILTRATION_STAGES = [
+        {
+          stage: 1,
+          shortName: 'PP Sediment',
+          title: 'Stage 1: 5-Micron PP Sediment Pre-Filter',
+          micron: '5.0 Microns',
+          efficiency: '99.5%',
+          removes: ['Rust & Pipe Flakes', 'Sand & Silt', 'Suspended Dirt', 'Coarse Microplastics'],
+          whyItMatters: 'Captures physical debris before water reaches delicate downstream membranes, preventing clogs and extending total system life by up to 2x.',
+          badge: 'Physical Barrier'
+        },
+        {
+          stage: 2,
+          shortName: 'Activated Carbon',
+          title: 'Stage 2: Catalytic Coconut-Shell Carbon Block',
+          micron: '0.5 Microns',
+          efficiency: '99.2%',
+          removes: ['Chlorine & Chloramines', 'VOCs & Pesticides', 'Foul Odors & Bad Taste', 'Industrial Solvents'],
+          whyItMatters: 'High-porosity catalytic carbon chemically adsorbs municipal disinfectants and volatile organic compounds that ruin taste and dry out skin.',
+          badge: 'Chemical Adsorption'
+        },
+        {
+          stage: 3,
+          shortName: 'RO Membrane',
+          title: 'Stage 3: 0.0001-Micron Reverse Osmosis Membrane',
+          micron: '0.0001 Microns',
+          efficiency: '99.99%',
+          removes: ['PFAS ("Forever Chemicals")', 'Heavy Metals (Lead, Arsenic)', 'Dissolved Solids (TDS)', 'Fluoride & Nitrates'],
+          whyItMatters: 'The molecular heart of AquaPure: forces water molecules through a semi-permeable membrane 500,000x thinner than a human hair, rejecting dissolved toxins.',
+          badge: 'Molecular Separation'
+        },
+        {
+          stage: 4,
+          shortName: 'UV Sterilizer',
+          title: 'Stage 4: 265nm UV-C LED Sterilization Chamber',
+          micron: '265nm UV-C Light',
+          efficiency: '99.99%',
+          removes: ['E. coli & Coliform Bacteria', 'Waterborne Viruses', 'Giardia & Cryptosporidium', 'Biofilm Microbes'],
+          whyItMatters: 'Neutralizes microbial DNA instantly without adding any chemicals, giving peace of mind during municipal boil-water advisories or well-water use.',
+          badge: 'Microbial Defense'
+        },
+        {
+          stage: 5,
+          shortName: 'Alkaline Mineralizer',
+          title: 'Stage 5: Natural Alkaline Mineral Restoration',
+          micron: 'pH 7.5 – 8.2 Target',
+          efficiency: 'Balanced Ca / Mg',
+          removes: ['Flat / Acidic RO Taste', 'Zero-Mineral Imbalance'],
+          whyItMatters: 'Pure RO water can taste slightly flat. Our natural calcite & magnesium bed restores essential electrolytes for silky-smooth, crisp hydration.',
+          badge: 'Taste & Electrolytes'
+        }
+      ];
+
+      /* -------------------------------------------------------------------
+         4. FAQ DATA
+      ------------------------------------------------------------------- */
+      const FAQS = [
+        {
+          q: 'How difficult is it to install an AquaPure Under-Sink RO system?',
+          a: 'Most homeowners complete installation in 25–30 minutes using a standard wrench and screwdriver. Every kit includes color-coded quick-connect tubing, a feed-water adapter, and a dedicated brushed-nickel smart faucet.'
+        },
+        {
+          q: 'Does Reverse Osmosis remove healthy minerals?',
+          a: 'Stage 3 (the RO membrane) strips out 99.99% of dissolved solids, including heavy metals and minerals. That is why our Stage 5 Alkaline Mineralizer reintroduces bioavailable Calcium and Magnesium to achieve a crisp pH of 7.5–8.2.'
+        },
+        {
+          q: 'How much wastewater does a tankless RO system produce?',
+          a: 'Traditional tank RO systems waste 4 gallons per 1 gallon of pure water. AquaPure Pro 800G achieves a leading 2:1 pure-to-drain ratio, saving thousands of gallons annually.'
+        },
+        {
+          q: 'Are AquaPure filters independently certified?',
+          a: 'Yes. Our filtration media and RO assemblies are tested and certified against NSF/ANSI Standard 58 (TDS & heavy metals), Standard 42 (chlorine & taste), and Standard 53 (health-effect contaminants including PFAS and lead).'
+        },
+        {
+          q: 'How will I know when to replace my filter cartridges?',
+          a: 'Our under-sink and countertop models feature real-time LED filter-life indicators on both the chassis and smart faucet. Twist-lock cartridges swap out cleanly in under 10 seconds with zero tools.'
+        },
+        {
+          q: 'What is covered by the 3-Year Warranty and 60-Day Trial?',
+          a: 'Try any AquaPure system in your home for 60 days—if you are not thrilled with the taste and purity, return it for a full refund. All hardware is backed by a 3-year comprehensive replacement warranty.'
+        }
+      ];
+
+      /* -------------------------------------------------------------------
+         5. APPLICATION STATE
+      ------------------------------------------------------------------- */
+      const FREE_SHIPPING_THRESHOLD = 150;
+      const FLAT_SHIPPING_COST = 15;
+      const VALID_PROMOS = {
+        PURE10: { code: 'PURE10', rate: 0.10, label: '10% Off' }
+      };
+
+      const state = {
+        category: 'All',
+        search: '',
+        sort: 'featured',
+        activeStage: 1,
+        cart: [
+          // Pre-seed 1 item? Starting at 0 keeps the badge clean, or user adds live.
+        ],
+        promo: null // { code, rate, label }
+      };
+
+      /* -------------------------------------------------------------------
+         6. DOM REFERENCES
+      ------------------------------------------------------------------- */
+      const el = {
+        headerSearch: document.getElementById('header-search'),
+        cartCountBadge: document.getElementById('cart-count-badge'),
+        openCartBtn: document.getElementById('open-cart-btn'),
+        mobileMenuBtn: document.getElementById('mobile-menu-btn'),
+        mobileMenu: document.getElementById('mobile-menu'),
+        categoryPills: document.getElementById('category-pills'),
+        sortSelect: document.getElementById('sort-select'),
+        resultsCount: document.getElementById('results-count'),
+        productGrid: document.getElementById('product-grid'),
+        emptyCatalogState: document.getElementById('empty-catalog-state'),
+        resetFiltersBtn: document.getElementById('reset-filters-btn'),
+        stageButtons: document.getElementById('stage-buttons'),
+        stageDetailCard: document.getElementById('stage-detail-card'),
+        faqAccordion: document.getElementById('faq-accordion'),
+        quickViewModal: document.getElementById('quick-view-modal'),
+        closeQvBtn: document.getElementById('close-qv-btn'),
+        qvBody: document.getElementById('qv-body'),
+        cartOverlay: document.getElementById('cart-overlay'),
+        cartBackdrop: document.getElementById('cart-backdrop'),
+        cartDrawer: document.getElementById('cart-drawer'),
+        closeCartBtn: document.getElementById('close-cart-btn'),
+        cartDrawerSubtitle: document.getElementById('cart-drawer-subtitle'),
+        shippingProgressText: document.getElementById('shipping-progress-text'),
+        shippingProgressBar: document.getElementById('shipping-progress-bar'),
+        cartItemsContainer: document.getElementById('cart-items-container'),
+        promoForm: document.getElementById('promo-form'),
+        promoInput: document.getElementById('promo-input'),
+        promoStatus: document.getElementById('promo-status'),
+        cartSubtotal: document.getElementById('cart-subtotal'),
+        cartDiscountRow: document.getElementById('cart-discount-row'),
+        cartPromoLabel: document.getElementById('cart-promo-label'),
+        cartDiscount: document.getElementById('cart-discount'),
+        cartShipping: document.getElementById('cart-shipping'),
+        cartTotal: document.getElementById('cart-total'),
+        openCheckoutBtn: document.getElementById('open-checkout-btn'),
+        checkoutModal: document.getElementById('checkout-modal'),
+        closeCheckoutBtn: document.getElementById('close-checkout-btn'),
+        checkoutFormView: document.getElementById('checkout-form-view'),
+        checkoutConfirmView: document.getElementById('checkout-confirm-view'),
+        checkoutForm: document.getElementById('checkout-form'),
+        coItemCount: document.getElementById('co-item-count'),
+        coTotal: document.getElementById('co-total'),
+        confirmCustomerName: document.getElementById('confirm-customer-name'),
+        confirmCustomerEmail: document.getElementById('confirm-customer-email'),
+        confirmOrderId: document.getElementById('confirm-order-id'),
+        confirmOrderTotal: document.getElementById('confirm-order-total'),
+        continueShoppingBtn: document.getElementById('continue-shopping-btn'),
+        newsletterForm: document.getElementById('newsletter-form'),
+        newsletterEmail: document.getElementById('newsletter-email'),
+        newsletterFeedback: document.getElementById('newsletter-feedback'),
+        toastContainer: document.getElementById('toast-container')
+      };
+
+      /* -------------------------------------------------------------------
+         7. UTILITY HELPERS
+      ------------------------------------------------------------------- */
+      function formatMoney(amount) {
+        return '$' + Number(amount).toFixed(2);
+      }
+
+      function showToast(message, type = 'success') {
+        const toast = document.createElement('div');
+        const colors = type === 'error'
+          ? 'bg-rose-600 text-white'
+          : type === 'info'
+            ? 'bg-navy-900 text-white border border-aqua-500/40'
+            : 'bg-navy-900 text-white border border-emerald-400/40';
+
+        const icon = type === 'error'
+          ? '<svg class="w-4 h-4 text-rose-200 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>'
+          : '<svg class="w-4 h-4 text-emerald-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>';
+
+        toast.className = `toast-enter pointer-events-auto flex items-center gap-3 px-4 py-3 rounded-2xl shadow-xl text-sm font-medium ${colors}`;
+        toast.innerHTML = `${icon}<span>${message}</span>`;
+
+        el.toastContainer.appendChild(toast);
+        setTimeout(() => {
+          toast.style.opacity = '0';
+          toast.style.transform = 'translateY(8px)';
+          toast.style.transition = 'all 0.25s ease';
+          setTimeout(() => toast.remove(), 260);
+        }, 3000);
+      }
+
+      /* -------------------------------------------------------------------
+         8. RENDER CATEGORY PILLS & PRODUCT CATALOG
+      ------------------------------------------------------------------- */
+      function renderCategoryPills() {
+        el.categoryPills.innerHTML = CATEGORIES.map(cat => {
+          const isActive = state.category === cat;
+          const classes = isActive
+            ? 'bg-navy-900 text-white shadow-sm'
+            : 'bg-white text-slate-600 border border-slate-200 hover:border-aqua-400 hover:text-navy-900';
+          return `
+            <button
+              type="button"
+              role="tab"
+              aria-selected="${isActive}"
+              data-category="${cat}"
+              class="category-pill px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all ${classes}"
+            >
+              ${cat}
+            </button>
+          `;
+        }).join('');
+      }
+
+      function getFilteredProducts() {
+        const query = state.search.trim().toLowerCase();
+        let list = PRODUCTS.filter(p => {
+          const matchCat = state.category === 'All' || p.category === state.category;
+          const matchSearch = !query ||
+            p.name.toLowerCase().includes(query) ||
+            p.category.toLowerCase().includes(query) ||
+            p.stageTag.toLowerCase().includes(query) ||
+            p.description.toLowerCase().includes(query);
+          return matchCat && matchSearch;
+        });
+
+        if (state.sort === 'price-asc') {
+          list.sort((a, b) => a.price - b.price);
+        } else if (state.sort === 'price-desc') {
+          list.sort((a, b) => b.price - a.price);
+        } else if (state.sort === 'rating') {
+          list.sort((a, b) => b.rating - a.rating || b.reviews - a.reviews);
+        }
+        return list;
+      }
+
+      function renderProducts() {
+        const list = getFilteredProducts();
+        el.resultsCount.textContent = `Showing ${list.length} ${list.length === 1 ? 'product' : 'products'}`;
+
+        if (list.length === 0) {
+          el.productGrid.classList.add('hidden');
+          el.emptyCatalogState.classList.remove('hidden');
+          return;
+        }
+
+        el.emptyCatalogState.classList.add('hidden');
+        el.productGrid.classList.remove('hidden');
+
+        el.productGrid.innerHTML = list.map(product => `
+          <article class="group bg-white rounded-2xl border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-aqua-300/80 transition-all duration-300 flex flex-col overflow-hidden">
+            <!-- Visual Area -->
+            <div class="relative bg-gradient-to-b from-slate-50 to-sky-50/40 p-5 h-52 flex items-center justify-center overflow-hidden">
+              <span class="absolute top-3 left-3 px-2.5 py-1 rounded-full text-[11px] font-bold tracking-wide shadow-sm ${product.badgeColor}">
+                ${product.badge}
+              </span>
+              <div class="w-44 h-40 group-hover:scale-105 transition-transform duration-300">
+                ${getProductSVG(product.svgType)}
+              </div>
+              <button
+                type="button"
+                data-quick-view="${product.id}"
+                class="quick-view-btn absolute bottom-3 right-3 px-3 py-1.5 rounded-xl bg-white/95 hover:bg-navy-900 hover:text-white text-navy-900 text-xs font-semibold shadow-sm border border-slate-200 transition-colors"
+              >
+                Quick View
+              </button>
+            </div>
+
+            <!-- Card Body -->
+            <div class="p-5 flex-1 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between gap-2 mb-1.5">
+                  <span class="text-[11px] font-semibold uppercase tracking-wider text-aqua-700 bg-aqua-50 px-2 py-0.5 rounded-md">
+                    ${product.stageTag}
+                  </span>
+                  <div class="flex items-center gap-1 text-xs font-semibold text-slate-600">
+                    <span class="text-amber-400">★</span>
+                    <span>${product.rating.toFixed(1)}</span>
+                    <span class="text-slate-400 font-normal">(${product.reviews})</span>
+                  </div>
+                </div>
+
+                <h3 class="text-base font-bold text-navy-900 group-hover:text-aqua-700 transition-colors leading-snug">
+                  ${product.name}
+                </h3>
+                <p class="text-xs text-slate-500 mt-1.5 line-clamp-2 leading-relaxed">
+                  ${product.description}
+                </p>
+              </div>
+
+              <div class="mt-5 pt-4 border-t border-slate-100 flex items-center justify-between gap-3">
+                <div>
+                  <span class="text-xl font-extrabold text-navy-900">${formatMoney(product.price)}</span>
+                </div>
+                <button
+                  type="button"
+                  data-add-cart="${product.id}"
+                  class="add-to-cart-btn inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-navy-900 hover:bg-aqua-600 text-white text-xs font-bold transition-colors active:scale-95"
+                >
+                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          </article>
+        `).join('');
+      }
+
+      /* -------------------------------------------------------------------
+         9. PRODUCT QUICK-VIEW MODAL
+      ------------------------------------------------------------------- */
+      function openQuickView(productId) {
+        const product = PRODUCTS.find(p => p.id === Number(productId));
+        if (!product) return;
+
+        el.qvBody.innerHTML = `
+          <div class="md:col-span-5 bg-gradient-to-br from-slate-50 to-aqua-50/70 p-8 flex flex-col items-center justify-center border-b md:border-b-0 md:border-r border-slate-100">
+            <span class="self-start px-3 py-1 rounded-full text-xs font-bold mb-4 ${product.badgeColor}">${product.badge}</span>
+            <div class="w-56 h-48">
+              ${getProductSVG(product.svgType)}
+            </div>
+            <span class="mt-4 text-xs font-semibold text-aqua-700 bg-white px-3 py-1 rounded-full border border-aqua-100 shadow-sm">
+              ${product.stageTag}
+            </span>
+          </div>
+
+          <div class="md:col-span-7 p-6 sm:p-8 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-2 text-xs font-semibold text-slate-500 mb-1">
+                <span>${product.category}</span>
+                <span>•</span>
+                <span class="text-amber-500">★ ${product.rating.toFixed(1)} (${product.reviews} reviews)</span>
+              </div>
+              <h3 id="qv-title" class="text-2xl font-extrabold text-navy-900">${product.name}</h3>
+              <div class="text-2xl font-extrabold text-aqua-600 mt-2">${formatMoney(product.price)}</div>
+              <p class="text-sm text-slate-600 mt-3 leading-relaxed">${product.description}</p>
+
+              <!-- Technical Specs Grid -->
+              <div class="mt-5 grid grid-cols-2 gap-3">
+                <div class="p-3 rounded-xl bg-slate-50 border border-slate-100">
+                  <p class="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Flow Rate</p>
+                  <p class="text-xs sm:text-sm font-bold text-navy-900 mt-0.5">${product.specs.flowRate}</p>
+                </div>
+                <div class="p-3 rounded-xl bg-slate-50 border border-slate-100">
+                  <p class="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Filter Life</p>
+                  <p class="text-xs sm:text-sm font-bold text-navy-900 mt-0.5">${product.specs.filterLife}</p>
+                </div>
+                <div class="p-3 rounded-xl bg-slate-50 border border-slate-100 col-span-2">
+                  <p class="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Contaminants Removed</p>
+                  <p class="text-xs sm:text-sm font-bold text-navy-900 mt-0.5">${product.specs.contaminants}</p>
+                </div>
+                <div class="p-3 rounded-xl bg-slate-50 border border-slate-100 col-span-2">
+                  <p class="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Dimensions</p>
+                  <p class="text-xs sm:text-sm font-bold text-navy-900 mt-0.5">${product.specs.dimensions}</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-6 flex items-center gap-3">
+              <button
+                type="button"
+                id="qv-add-btn"
+                data-product-id="${product.id}"
+                class="flex-1 py-3.5 px-6 rounded-xl bg-aqua-600 hover:bg-aqua-500 text-white font-bold text-sm shadow-lg shadow-aqua-600/20 transition-all active:scale-95"
+              >
+                Add to Cart — ${formatMoney(product.price)}
+              </button>
+            </div>
+          </div>
+        `;
+
+        el.quickViewModal.classList.remove('hidden');
+        el.quickViewModal.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+
+        document.getElementById('qv-add-btn').addEventListener('click', () => {
+          addToCart(product.id);
+          closeQuickView();
+        });
+      }
+
+      function closeQuickView() {
+        el.quickViewModal.classList.add('hidden');
+        el.quickViewModal.classList.remove('flex');
+        document.body.style.overflow = '';
+      }
+
+      /* -------------------------------------------------------------------
+         10. INTERACTIVE 5-STAGE FILTRATION EXPLORER
+      ------------------------------------------------------------------- */
+      function renderFiltrationExplorer() {
+        el.stageButtons.innerHTML = FILTRATION_STAGES.map(s => {
+          const active = s.stage === state.activeStage;
+          return `
+            <button
+              type="button"
+              data-stage="${s.stage}"
+              class="stage-btn text-left p-4 rounded-2xl border transition-all ${
+                active
+                  ? 'bg-aqua-500 text-navy-950 border-aqua-400 shadow-lg shadow-aqua-500/20 scale-[1.02]'
+                  : 'bg-white/5 text-slate-300 border-white/10 hover:bg-white/10 hover:border-white/20'
+              }"
+            >
+              <div class="flex items-center justify-between mb-1.5">
+                <span class="text-xs font-extrabold uppercase tracking-wider ${active ? 'text-navy-950/75' : 'text-aqua-400'}">Stage 0${s.stage}</span>
+                <span class="w-2 h-2 rounded-full ${active ? 'bg-navy-950' : 'bg-white/25'}"></span>
+              </div>
+              <div class="font-bold text-sm sm:text-base">${s.shortName}</div>
+            </button>
+          `;
+        }).join('');
+
+        const current = FILTRATION_STAGES.find(s => s.stage === state.activeStage) || FILTRATION_STAGES[0];
+        el.stageDetailCard.innerHTML = `
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            <div class="lg:col-span-7 space-y-5">
+              <div class="flex flex-wrap items-center gap-2.5">
+                <span class="px-3 py-1 rounded-full text-xs font-bold bg-aqua-500/20 text-aqua-300 border border-aqua-400/30">${current.badge}</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-white/10 text-slate-200">${current.micron}</span>
+              </div>
+
+              <h3 class="text-2xl sm:text-3xl font-extrabold text-white">${current.title}</h3>
+              <p class="text-slate-300 text-sm sm:text-base leading-relaxed">${current.whyItMatters}</p>
+
+              <div>
+                <p class="text-xs font-bold uppercase tracking-wider text-aqua-400 mb-3">What This Stage Targets</p>
+                <div class="flex flex-wrap gap-2">
+                  ${current.removes.map(item => `
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/10 border border-white/10 text-xs sm:text-sm font-medium text-white">
+                      <svg class="w-3.5 h-3.5 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                      ${item}
+                    </span>
+                  `).join('')}
+                </div>
+              </div>
+            </div>
+
+            <!-- Visual Purity Meter -->
+            <div class="lg:col-span-5 bg-navy-950/80 border border-white/10 rounded-2xl p-6 space-y-5">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Lab Efficiency Rating</span>
+                <span class="text-xl font-extrabold text-aqua-400">${current.efficiency}</span>
+              </div>
+
+              <!-- Animated 5-Stage Progress Visual -->
+              <div class="space-y-2.5">
+                ${FILTRATION_STAGES.map(st => {
+                  const completed = st.stage <= current.stage;
+                  const isNow = st.stage === current.stage;
+                  return `
+                    <div class="flex items-center gap-3">
+                      <span class="w-6 h-6 rounded-full text-[11px] font-bold flex items-center justify-center shrink-0 ${
+                        isNow ? 'bg-aqua-400 text-navy-950 ring-4 ring-aqua-400/25' : completed ? 'bg-emerald-500 text-navy-950' : 'bg-white/10 text-slate-400'
+                      }">${st.stage}</span>
+                      <div class="flex-1 h-2 rounded-full bg-white/10 overflow-hidden">
+                        <div class="h-full rounded-full transition-all duration-500 ${completed ? 'bg-gradient-to-r from-aqua-400 to-emerald-400' : 'w-0'}" style="width: ${completed ? '100%' : '0%'};"></div>
+                      </div>
+                      <span class="text-xs font-medium w-28 text-right truncate ${isNow ? 'text-white font-bold' : 'text-slate-400'}">${st.shortName}</span>
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+
+              <div class="pt-3 border-t border-white/10 flex items-center justify-between text-xs text-slate-400">
+                <span>Water Purity Progression</span>
+                <span class="text-emerald-400 font-semibold">Stage ${current.stage} of 5 Active</span>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      /* -------------------------------------------------------------------
+         11. INTERACTIVE FAQ ACCORDION
+      ------------------------------------------------------------------- */
+      function renderFAQs() {
+        el.faqAccordion.innerHTML = FAQS.map((item, idx) => `
+          <div class="accordion-item bg-white rounded-2xl border border-slate-200 overflow-hidden transition-colors" data-open="${idx === 0 ? 'true' : 'false'}">
+            <button
+              type="button"
+              class="faq-trigger w-full px-6 py-4 text-left flex items-center justify-between gap-4 hover:bg-slate-50 transition-colors"
+              aria-expanded="${idx === 0 ? 'true' : 'false'}"
+            >
+              <span class="font-bold text-navy-900 text-sm sm:text-base">${item.q}</span>
+              <span class="faq-icon w-7 h-7 rounded-full bg-slate-100 text-navy-900 flex items-center justify-center shrink-0 transition-transform duration-200 ${idx === 0 ? 'rotate-45' : ''}">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              </span>
+            </button>
+            <div class="accordion-content">
+              <div class="accordion-inner">
+                <p class="px-6 pb-5 text-sm text-slate-600 leading-relaxed">${item.a}</p>
+              </div>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      /* -------------------------------------------------------------------
+         12. SHOPPING CART LOGIC & DRAWER RENDERING
+      ------------------------------------------------------------------- */
+      function getCartTotals() {
+        const itemCount = state.cart.reduce((sum, item) => sum + item.qty, 0);
+        const subtotal = state.cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+        const discount = state.promo ? subtotal * state.promo.rate : 0;
+        const discountedSubtotal = Math.max(0, subtotal - discount);
+        const shipping = itemCount === 0 ? 0 : (subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : FLAT_SHIPPING_COST);
+        const total = discountedSubtotal + shipping;
+        return { itemCount, subtotal, discount, shipping, total };
+      }
+
+      function addToCart(productId) {
+        const product = PRODUCTS.find(p => p.id === Number(productId));
+        if (!product) return;
+
+        const existing = state.cart.find(item => item.id === product.id);
+        if (existing) {
+          existing.qty += 1;
+        } else {
+          state.cart.push({
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            stageTag: product.stageTag,
+            svgType: product.svgType,
+            qty: 1
+          });
+        }
+
+        renderCart();
+        // Animate cart count badge
+        el.cartCountBadge.classList.remove('animate-pop');
+        void el.cartCountBadge.offsetWidth;
+        el.cartCountBadge.classList.add('animate-pop');
+
+        showToast(`Added "${product.name}" to cart`);
+      }
+
+      function updateCartQty(productId, delta) {
+        const idx = state.cart.findIndex(item => item.id === Number(productId));
+        if (idx === -1) return;
+
+        state.cart[idx].qty += delta;
+        if (state.cart[idx].qty <= 0) {
+          state.cart.splice(idx, 1);
+        }
+        renderCart();
+      }
+
+      function removeCartItem(productId) {
+        state.cart = state.cart.filter(item => item.id !== Number(productId));
+        renderCart();
+        showToast('Item removed from cart', 'info');
+      }
+
+      function renderCart() {
+        const { itemCount, subtotal, discount, shipping, total } = getCartTotals();
+
+        el.cartCountBadge.textContent = itemCount;
+        el.cartDrawerSubtitle.textContent = `${itemCount} ${itemCount === 1 ? 'item' : 'items'} selected`;
+
+        // Free shipping progress bar
+        const progressPct = Math.min(100, (subtotal / FREE_SHIPPING_THRESHOLD) * 100);
+        el.shippingProgressBar.style.width = `${progressPct}%`;
+        if (subtotal >= FREE_SHIPPING_THRESHOLD) {
+          el.shippingProgressText.innerHTML = `<span class="text-emerald-700">✓ Congrats! You unlocked FREE Express Shipping!</span>`;
+        } else {
+          const remaining = FREE_SHIPPING_THRESHOLD - subtotal;
+          el.shippingProgressText.textContent = `Add ${formatMoney(remaining)} more for FREE shipping`;
+        }
+
+        // Cart items list
+        if (state.cart.length === 0) {
+          el.cartItemsContainer.innerHTML = `
+            <div class="h-full flex flex-col items-center justify-center text-center py-12">
+              <div class="w-16 h-16 rounded-2xl bg-slate-100 text-slate-400 flex items-center justify-center mb-4">
+                <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+              </div>
+              <p class="font-bold text-navy-900">Your cart is empty</p>
+              <p class="text-xs text-slate-500 mt-1 max-w-xs">Explore our NSF-certified water filtration systems and add your favorite to get started.</p>
+            </div>
+          `;
+        } else {
+          el.cartItemsContainer.innerHTML = state.cart.map(item => `
+            <div class="flex gap-3.5 p-3.5 rounded-2xl border border-slate-200 bg-white">
+              <div class="w-16 h-16 rounded-xl bg-slate-50 p-1.5 shrink-0 flex items-center justify-center">
+                ${getProductSVG(item.svgType)}
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="flex items-start justify-between gap-2">
+                  <h4 class="text-sm font-bold text-navy-900 leading-tight truncate">${item.name}</h4>
+                  <button type="button" data-remove-id="${item.id}" aria-label="Remove item" class="remove-item-btn text-slate-400 hover:text-rose-500 transition-colors p-0.5">
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>
+                  </button>
+                </div>
+                <p class="text-[11px] text-slate-500 mt-0.5">${item.stageTag}</p>
+                <div class="mt-2.5 flex items-center justify-between">
+                  <div class="inline-flex items-center border border-slate-200 rounded-lg overflow-hidden">
+                    <button type="button" data-qty-id="${item.id}" data-delta="-1" class="qty-btn px-2.5 py-1 text-xs font-bold text-slate-700 hover:bg-slate-100">−</button>
+                    <span class="px-2.5 py-1 text-xs font-bold text-navy-900 bg-slate-50">${item.qty}</span>
+                    <button type="button" data-qty-id="${item.id}" data-delta="1" class="qty-btn px-2.5 py-1 text-xs font-bold text-slate-700 hover:bg-slate-100">+</button>
+                  </div>
+                  <span class="text-sm font-extrabold text-navy-900">${formatMoney(item.price * item.qty)}</span>
+                </div>
+              </div>
+            </div>
+          `).join('');
+        }
+
+        // Totals & Promo Display
+        el.cartSubtotal.textContent = formatMoney(subtotal);
+        if (state.promo && subtotal > 0) {
+          el.cartDiscountRow.classList.remove('hidden');
+          el.cartDiscountRow.classList.add('flex');
+          el.cartPromoLabel.textContent = state.promo.code;
+          el.cartDiscount.textContent = `-${formatMoney(discount)}`;
+          el.promoStatus.innerHTML = `
+            <span class="text-emerald-600 font-semibold">Promo "${state.promo.code}" applied (${state.promo.label})</span>
+            <button type="button" id="remove-promo-btn" class="text-slate-400 hover:text-rose-500 underline">Remove</button>
+          `;
+          const removeBtn = document.getElementById('remove-promo-btn');
+          if (removeBtn) {
+            removeBtn.addEventListener('click', () => {
+              state.promo = null;
+              el.promoInput.value = '';
+              el.promoStatus.innerHTML = '';
+              renderCart();
+              showToast('Promo code removed', 'info');
+            });
+          }
+        } else {
+          el.cartDiscountRow.classList.add('hidden');
+          el.cartDiscountRow.classList.remove('flex');
+        }
+
+        el.cartShipping.textContent = itemCount === 0 ? '$0.00' : (shipping === 0 ? 'FREE' : formatMoney(shipping));
+        el.cartShipping.className = shipping === 0 && itemCount > 0 ? 'font-bold text-emerald-600' : 'font-semibold text-navy-900';
+        el.cartTotal.textContent = formatMoney(total);
+        el.openCheckoutBtn.disabled = itemCount === 0;
+      }
+
+      function openCartDrawer() {
+        el.cartOverlay.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+        requestAnimationFrame(() => {
+          el.cartBackdrop.classList.remove('opacity-0');
+          el.cartDrawer.classList.remove('translate-x-full');
+        });
+      }
+
+      function closeCartDrawer() {
+        el.cartBackdrop.classList.add('opacity-0');
+        el.cartDrawer.classList.add('translate-x-full');
+        setTimeout(() => {
+          el.cartOverlay.classList.add('hidden');
+          document.body.style.overflow = '';
+        }, 300);
+      }
+
+      /* -------------------------------------------------------------------
+         13. SIMULATED CHECKOUT MODAL
+      ------------------------------------------------------------------- */
+      function openCheckoutModal() {
+        const { itemCount, total } = getCartTotals();
+        if (itemCount === 0) return;
+
+        closeCartDrawer();
+        el.coItemCount.textContent = `${itemCount} ${itemCount === 1 ? 'item' : 'items'}`;
+        el.coTotal.textContent = formatMoney(total);
+
+        el.checkoutFormView.classList.remove('hidden');
+        el.checkoutConfirmView.classList.add('hidden');
+        el.checkoutModal.classList.remove('hidden');
+        el.checkoutModal.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeCheckoutModal() {
+        el.checkoutModal.classList.add('hidden');
+        el.checkoutModal.classList.remove('flex');
+        document.body.style.overflow = '';
+      }
+
+      /* -------------------------------------------------------------------
+         14. EVENT LISTENERS
+      ------------------------------------------------------------------- */
+      function initEvents() {
+        // Mobile Menu Toggle
+        el.mobileMenuBtn.addEventListener('click', () => {
+          el.mobileMenu.classList.toggle('hidden');
+        });
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+          link.addEventListener('click', () => el.mobileMenu.classList.add('hidden'));
+        });
+
+        // Live Header Search
+        el.headerSearch.addEventListener('input', (e) => {
+          state.search = e.target.value;
+          renderProducts();
+        });
+        el.headerSearch.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') {
+            document.getElementById('shop').scrollIntoView({ behavior: 'smooth' });
+          }
+        });
+
+        // Category Filter Pills (delegated)
+        el.categoryPills.addEventListener('click', (e) => {
+          const btn = e.target.closest('.category-pill');
+          if (!btn) return;
+          state.category = btn.dataset.category;
+          renderCategoryPills();
+          renderProducts();
+        });
+
+        // Sort Dropdown
+        el.sortSelect.addEventListener('change', (e) => {
+          state.sort = e.target.value;
+          renderProducts();
+        });
+
+        // Reset Filters
+        el.resetFiltersBtn.addEventListener('click', () => {
+          state.category = 'All';
+          state.search = '';
+          state.sort = 'featured';
+          el.headerSearch.value = '';
+          el.sortSelect.value = 'featured';
+          renderCategoryPills();
+          renderProducts();
+        });
+
+        // Product Grid Actions (Quick View & Add to Cart)
+        el.productGrid.addEventListener('click', (e) => {
+          const qvBtn = e.target.closest('.quick-view-btn');
+          if (qvBtn) {
+            openQuickView(qvBtn.dataset.quickView);
+            return;
+          }
+          const addBtn = e.target.closest('.add-to-cart-btn');
+          if (addBtn) {
+            addToCart(addBtn.dataset.addCart);
+          }
+        });
+
+        // Comparison Table Quick Add Buttons
+        document.querySelectorAll('.compare-add-btn').forEach(btn => {
+          btn.addEventListener('click', () => addToCart(btn.dataset.compareAdd));
+        });
+
+        // Quick-View Modal Close
+        el.closeQvBtn.addEventListener('click', closeQuickView);
+        el.quickViewModal.addEventListener('click', (e) => {
+          if (e.target === el.quickViewModal) closeQuickView();
+        });
+
+        // 5-Stage Filtration Explorer
+        el.stageButtons.addEventListener('click', (e) => {
+          const btn = e.target.closest('.stage-btn');
+          if (!btn) return;
+          state.activeStage = Number(btn.dataset.stage);
+          renderFiltrationExplorer();
+        });
+
+        // FAQ Accordion
+        el.faqAccordion.addEventListener('click', (e) => {
+          const trigger = e.target.closest('.faq-trigger');
+          if (!trigger) return;
+          const item = trigger.closest('.accordion-item');
+          const icon = trigger.querySelector('.faq-icon');
+          const isOpen = item.getAttribute('data-open') === 'true';
+
+          item.setAttribute('data-open', String(!isOpen));
+          trigger.setAttribute('aria-expanded', String(!isOpen));
+          icon.classList.toggle('rotate-45', !isOpen);
+        });
+
+        // Cart Drawer Open / Close
+        el.openCartBtn.addEventListener('click', openCartDrawer);
+        el.closeCartBtn.addEventListener('click', closeCartDrawer);
+        el.cartBackdrop.addEventListener('click', closeCartDrawer);
+
+        // Cart Item Qty & Remove (delegated)
+        el.cartItemsContainer.addEventListener('click', (e) => {
+          const qtyBtn = e.target.closest('.qty-btn');
+          if (qtyBtn) {
+            updateCartQty(qtyBtn.dataset.qtyId, Number(qtyBtn.dataset.delta));
+            return;
+          }
+          const removeBtn = e.target.closest('.remove-item-btn');
+          if (removeBtn) {
+            removeCartItem(removeBtn.dataset.removeId);
+          }
+        });
+
+        // Promo Code Form
+        el.promoForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const code = el.promoInput.value.trim().toUpperCase();
+          if (!code) return;
+
+          if (VALID_PROMOS[code]) {
+            state.promo = VALID_PROMOS[code];
+            renderCart();
+            showToast(`Promo code ${code} applied — 10% off!`);
+          } else {
+            el.promoStatus.innerHTML = `<span class="text-rose-500 font-medium">Invalid code. Try <strong>PURE10</strong> for 10% off.</span>`;
+            showToast('Invalid promo code. Try PURE10.', 'error');
+          }
+        });
+
+        // Checkout Modal Triggers
+        el.openCheckoutBtn.addEventListener('click', openCheckoutModal);
+        el.closeCheckoutBtn.addEventListener('click', closeCheckoutModal);
+        el.continueShoppingBtn.addEventListener('click', closeCheckoutModal);
+        el.checkoutModal.addEventListener('click', (e) => {
+          if (e.target === el.checkoutModal) closeCheckoutModal();
+        });
+
+        // Checkout Submission
+        el.checkoutForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const name = document.getElementById('co-name').value.trim();
+          const email = document.getElementById('co-email').value.trim();
+          const { total } = getCartTotals();
+          const orderId = '#AQP-' + Math.floor(10000 + Math.random() * 90000);
+
+          el.confirmCustomerName.textContent = name || 'Valued Customer';
+          el.confirmCustomerEmail.textContent = email;
+          el.confirmOrderId.textContent = orderId;
+          el.confirmOrderTotal.textContent = formatMoney(total);
+
+          // Reset cart after confirmation
+          state.cart = [];
+          state.promo = null;
+          el.promoInput.value = '';
+          el.promoStatus.innerHTML = '';
+          renderCart();
+          el.checkoutForm.reset();
+
+          el.checkoutFormView.classList.add('hidden');
+          el.checkoutConfirmView.classList.remove('hidden');
+          showToast(`Order ${orderId} confirmed!`);
+        });
+
+        // Newsletter Signup Form with Validation
+        el.newsletterForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const email = el.newsletterEmail.value.trim();
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+          if (!emailRegex.test(email)) {
+            el.newsletterFeedback.textContent = 'Please enter a valid email address.';
+            el.newsletterFeedback.className = 'text-xs text-rose-400 font-medium min-h-[1rem]';
+            return;
+          }
+
+          el.newsletterFeedback.textContent = 'Subscribed! Check your inbox for code PURE10.';
+          el.newsletterFeedback.className = 'text-xs text-emerald-400 font-medium min-h-[1rem]';
+          el.newsletterEmail.value = '';
+          showToast('Welcome to AquaPure! Code PURE10 unlocked.');
+        });
+
+        // Escape Key closes active modals / drawer
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') {
+            closeQuickView();
+            closeCheckoutModal();
+            if (!el.cartOverlay.classList.contains('hidden')) {
+              closeCartDrawer();
+            }
+          }
+        });
+      }
+
+      /* -------------------------------------------------------------------
+         15. INITIALIZE APPLICATION
+      ------------------------------------------------------------------- */
+      try {
+        renderCategoryPills();
+        renderProducts();
+        renderFiltrationExplorer();
+        renderFAQs();
+        renderCart();
+        initEvents();
+      } catch (err) {
+        console.error('AquaPure initialization error:', err);
+      }
+    })();
+  </script>
+</body>
+</html>
